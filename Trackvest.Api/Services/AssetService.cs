@@ -35,4 +35,28 @@ public class AssetService
         _assets.Add(asset);
         return asset;
     }
+
+    public Asset ModifyAsset(int id, Asset asset)
+    {
+        var existingAsset = _assets.FirstOrDefault(a => a!.Id == id);
+        if (existingAsset != null)
+        {
+            existingAsset.StockSymbol = asset.StockSymbol;
+            existingAsset.StockName = asset.StockName;
+            existingAsset.BuyPrice = asset.BuyPrice;
+            existingAsset.Quantity = asset.Quantity;
+            existingAsset.PurchaseDate = asset.PurchaseDate;
+            existingAsset.Note = asset.Note;
+        }
+        return existingAsset!;
+    }
+    public List<Asset> DeleteAsset(int id)
+    {
+        var asset = _assets.FirstOrDefault(a => a!.Id == id);
+        if (asset != null)
+        {
+            _assets.Remove(asset);
+        }
+        return _assets!;
+    }
 }

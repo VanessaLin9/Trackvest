@@ -27,7 +27,44 @@ public class AssetController(AssetService assetService) : ControllerBase
         }
 
         var result = assetService.CreateAsset(asset);
-        return CreatedAtAction(nameof(GetAll), result);
+        return CreatedAtAction(nameof(Create), result);
     }
-    
+
+    [HttpGet]
+    [Route("{id:int}")]
+    public IActionResult GetById(int id)
+    {
+        var asset = assetService.GetAllAssets().FirstOrDefault(a => a!.Id == id);
+        if (asset == null)
+        {
+            return NotFound();
+        }
+        return Ok(asset);
+    }
+
+    [HttpPut]
+    [Route("{id:int}")]
+    public IActionResult Update(int id, [FromBody] Asset asset)
+    {
+        if (asset == null)
+        {
+            return BadRequest("Asset cannot be null");
+        }
+
+        var modifiedAsset = assetService.ModifyAsset(id, asset);
+        return Ok(modifiedAsset);
+    }
+    [HttpDelete]
+    [Route("{id:int}")]
+    public IActionResult Delete(int id)
+    {
+        var asset = assetService.GetAllAssets().FirstOrDefault(a => a!.Id == id);
+        if (asset == null)
+        {
+            return NotFound();
+        }
+
+        var modifiedAsset = assetService.DeleteAsset(id);
+        return Ok(modifiedAsset);
+    }
 }
