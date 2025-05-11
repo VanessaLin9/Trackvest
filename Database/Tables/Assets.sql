@@ -1,5 +1,5 @@
 CREATE TABLE Assets (
-    id INT IDENTITY(1,1) PRIMARY KEY,
+    Id INT IDENTITY(1,1) PRIMARY KEY,
     StockSymbol NVARCHAR(10) NOT NULL,
     StockName NVARCHAR(100) NOT NULL,
     StockExchange NVARCHAR(10) NOT NULL,
@@ -18,3 +18,6 @@ CREATE TABLE Assets (
     FOREIGN KEY (AccountId) REFERENCES Accounts(Id)
 );
 
+CREATE INDEX IX_Assets_UserId ON Assets(UserId);
+CREATE INDEX IX_Assets_AccountId ON Assets(AccountId);
+CREATE INDEX IX_Assets_StockSymbol ON Assets(StockSymbol);

@@ -3,8 +3,10 @@ CREATE TABLE Accounts (
     UserId INT NOT NULL,
     Name NVARCHAR(100) NOT NULL,
     Description NVARCHAR(MAX) NULL,
-    created_at DATETIME NOT NULL DEFAULT GETDATE(),
-    updated_at DATETIME NOT NULL DEFAULT GETDATE(),
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    UpdatedAt DATETIME NOT NULL DEFAULT GETDATE(),
     
     FOREIGN KEY (UserId) REFERENCES Users(Id),
 );
+
+CREATE INDEX IX_Accounts_UserId ON Accounts(UserId);
