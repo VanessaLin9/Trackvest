@@ -9,6 +9,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<AssetService, AssetService>();
 builder.Services.AddControllers();
 
+builder.Services.AddScoped<IDbConnection>(sp => {
+    var configuration = sp.GetRequiredService<IConfiguration>();
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    return new SqlConnection(connectionString);
+});
 
 var app = builder.Build();
 
