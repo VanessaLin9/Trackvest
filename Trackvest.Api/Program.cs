@@ -1,12 +1,13 @@
-using Trackvest.Api.Models;
 using Trackvest.Api.Services;
+using Trackvest.Api.Repositories;
+using System.Data;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpClient();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<AssetService, AssetService>();
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IDbConnection>(sp => {
@@ -14,6 +15,9 @@ builder.Services.AddScoped<IDbConnection>(sp => {
     var connectionString = configuration.GetConnectionString("DefaultConnection");
     return new SqlConnection(connectionString);
 });
+
+builder.Services.AddScoped<AssetService>();
+builder.Services.AddScoped<AssetRepository>();
 
 var app = builder.Build();
 
@@ -25,10 +29,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 app.MapControllers();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
 
 app.UseHttpsRedirection();
 

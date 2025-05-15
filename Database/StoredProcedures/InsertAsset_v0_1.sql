@@ -1,5 +1,4 @@
-CREATE OR ALTER PROCEDURE InsertAsset_0.1
-    @Id INT IDENTITY(1,1) PRIMARY KEY,
+CREATE OR ALTER PROCEDURE InsertAsset_v0_1
     @StockSymbol NVARCHAR(10),
     @StockName NVARCHAR(100),
     @StockExchange NVARCHAR(10),
