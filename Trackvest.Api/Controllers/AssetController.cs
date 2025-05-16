@@ -10,13 +10,13 @@ namespace Trackvest.Api.Controller;
 public class AssetController(AssetService assetService) : ControllerBase
 {
 
-    // [HttpGet]
-    // [Route("/")]
-    // public IActionResult GetAll()
-    // {
-    //     var result = assetService.GetAllAssets();
-    //     return Ok(result);
-    // }
+    [HttpGet]
+    [Route("/")]
+    public async Task<IActionResult> GetAll(int userId)
+    {
+        var result = await assetService.GetAllAssets(userId);
+        return Ok(result);
+    }
 
     [HttpPost]
     [Route("/")]

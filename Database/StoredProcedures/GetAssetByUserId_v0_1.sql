@@ -1,0 +1,6 @@
+CREATE OR ALTER PROCEDURE GetAssetByUserId_v0_1
+    @UserId INT
+AS
+BEGIN
+    SELECT * FROM Assets WHERE UserId = @UserId;
+END

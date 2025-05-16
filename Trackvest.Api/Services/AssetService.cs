@@ -10,7 +10,9 @@ public class AssetService
         _assetRepository = assetRepository;
     }
     
-    // public List<Asset?> GetAllAssets() => _assets;
+    public async Task<List<Asset?>> GetAllAssets(int userId) {
+        return await _assetRepository.GetAllAssets(userId);
+    }
 
     public async Task<Asset> CreateAsset(Asset asset)
     {

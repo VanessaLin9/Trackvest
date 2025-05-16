@@ -10,6 +10,14 @@ public class AssetRepository {
     public AssetRepository(IDbConnection db) {
         _db = db;
     }
+
+    public async Task<List<Asset?>> GetAllAssets(int userId) {
+        return (List<Asset?>)await _db.QueryAsync<Asset>(
+            "GetAssetByUserId_v0_1",
+            new { UserId = userId },
+            commandType: CommandType.StoredProcedure
+        );
+    }
     
     public async Task<int> InsertAsset(Asset asset) {
         return await _db.ExecuteScalarAsync<int>(
