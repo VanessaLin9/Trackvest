@@ -14,6 +14,22 @@ public class AssetService
         return await _assetRepository.GetAllAssets(userId);
     }
 
+    public async Task<Asset?> GetAssetByUserAndStockSymbol(int userId, string stockSymbol) {
+        var userAllStock = await _assetRepository.GetAllAssets(userId);
+        return userAllStock.FirstOrDefault(a => a!.StockSymbol == stockSymbol);
+    }
+
+    public async Task<Asset?> UpdateAsset(int userId, int assetId, Asset asset) {
+        var userAllStock = await _assetRepository.GetAllAssets(userId);
+        var userStock = userAllStock.FirstOrDefault(a => a!.Id == assetId);
+        if (userStock == null) {
+            return null;
+        }
+        asset.Id = userStock.Id;
+        asset.UserId = userId;
+        return await _assetRepository.UpdateAsset(asset);
+    }
+
     public async Task<Asset> CreateAsset(Asset asset)
     {
         var id = await _assetRepository.InsertAsset(asset);

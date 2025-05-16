@@ -18,6 +18,22 @@ public class AssetController(AssetService assetService) : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    [Route("/{userId:int}/{stockSymbol}")]
+    public async Task<IActionResult> GetByUserAndStockSymbol(int userId, string stockSymbol)
+    {
+        var result = await assetService.GetAssetByUserAndStockSymbol(userId, stockSymbol);
+        return Ok(result);
+    }
+
+    [HttpPut]
+    [Route("/{userId:int}/{assetId:int}")]
+    public async Task<IActionResult> Update(int userId, int assetId, [FromBody] Asset asset)
+    {
+        var result = await assetService.UpdateAsset(userId, assetId, asset);
+        return Ok(result);
+    }
+
     [HttpPost]
     [Route("/")]
     public async Task<IActionResult> Create([FromBody] Asset asset)

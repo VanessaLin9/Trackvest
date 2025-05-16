@@ -19,6 +19,27 @@ public class AssetRepository {
         );
     }
     
+    public async Task<Asset?> UpdateAsset(Asset asset) {
+        return await _db.QueryFirstOrDefaultAsync<Asset>(
+            "UpdateAsset_v0_1",
+            new {
+                asset.UserId,
+                @AssetId = asset.Id,
+                asset.StockSymbol,
+                asset.StockName,
+                asset.StockExchange,
+                asset.BuyPrice,
+                asset.SellPrice,
+                asset.Quantity,
+                asset.PurchaseDate,
+                asset.SaleDate,
+                asset.Notes,
+                asset.ExchangeRate,
+            },
+            commandType: CommandType.StoredProcedure
+        );
+    }
+
     public async Task<int> InsertAsset(Asset asset) {
         return await _db.ExecuteScalarAsync<int>(
             "InsertAsset_v0_1",
